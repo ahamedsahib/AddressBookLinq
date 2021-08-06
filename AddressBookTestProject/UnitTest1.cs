@@ -1,5 +1,6 @@
 using AddressBookLinq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace AddressBookTestProject
 {
@@ -19,12 +20,39 @@ namespace AddressBookTestProject
         /// Returns the count of inserted data
         /// </summary>
         [TestMethod]
-        [TestCategory("Insert Values in Data Table")]
         public void TestForInsertIntoDataTable()
         {
-            int actual, expected = 2;
-            actual = manager.InsertIntoDataTable(person);
-            Assert.AreEqual(expected, actual);
+            try
+            {
+                int actual, expected = 2;
+                actual = manager.InsertIntoDataTable(person);
+                Assert.AreEqual(expected, actual);
+
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
+        /// <summary>
+        /// test method to modify existing data
+        /// </summary>
+        [TestMethod]
+
+        public void TestForModifyData()
+        {
+            try
+            {
+                string actual, expected = "success";
+                actual = manager.ModifyExsistingDataByName("Ashfaq","ahamed",person);
+                Assert.AreEqual(expected, actual);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+        }
+
     }
 }
