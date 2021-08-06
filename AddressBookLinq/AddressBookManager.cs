@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 
 namespace AddressBookLinq
@@ -122,6 +123,34 @@ namespace AddressBookLinq
             dataRow["Email"] = Person.emailId;
             dataTable.Rows.Add(dataRow);
         }
+
+        /// <summary>
+        /// modify exsistng data from the table
+        /// </summary>
+        public string ModifyExsistingDataByName(string name,string modifiedName, AddressBookData Person)
+        {
+            string output = string.Empty;
+            //insert into table
+            InsertIntoDataTable(Person);
+            try
+            {
+                var res = (from person in dataTable.AsEnumerable() where person.Field<string>("FirstName").Equals(name) select person).LastOrDefault();//returns last element satisfies the condition or default value
+                if (res != null)
+                {
+                    res["LastName"] = modifiedName;
+                    //display after its modified
+                    Console.WriteLine("Succesfully Updated!!!!!");
+                    DisplayDataTable();
+                    output = "success";
+                }
+            }
+            catch(Exception e)
+            {
+                return e.Message;
+            }
+            return output;
+        }
+
 
         /// <summary>
         /// Method to display the data table
