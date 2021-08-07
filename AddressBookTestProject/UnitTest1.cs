@@ -53,6 +53,25 @@ namespace AddressBookTestProject
             }
 
         }
+        /// <summary>
+        /// test method to delete Contact using name
+        /// </summary>
+        [TestMethod]
+
+        public void TestForDeleteData()
+        {
+            try
+            {
+                string actual, expected = "Deleted Successfully";
+                actual = manager.DeleteContactUsingName("Ashfaq", person);
+                Assert.AreEqual(expected, actual);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+        }
 
     }
 }
