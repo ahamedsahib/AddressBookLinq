@@ -14,5 +14,7 @@ namespace AddressBookLinq
         public Int64 phoneNumber { get; set; }
         public int zipCode { get; set; }
         public string emailId { get; set; }
+        public int personTypeId { get; set; }
+        public string personType { get; set; }
     }
 }

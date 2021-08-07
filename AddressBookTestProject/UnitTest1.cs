@@ -126,6 +126,25 @@ namespace AddressBookTestProject
             }
 
         }
+        /// <summary>
+        /// test method to get no of contact by ContactType
+        /// </summary>
+
+        [TestMethod]
+        public void TestMethodForCountBasedOnContactType()
+        {
+            try
+            {
+                string actual, expected = "success";
+                actual = manager.GetCountByType(person);
+                Assert.AreEqual(expected, actual);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+        }
 
     }
 }
