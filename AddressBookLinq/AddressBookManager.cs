@@ -151,6 +151,27 @@ namespace AddressBookLinq
             return output;
         }
 
+        /// <summary>
+        /// Method to delete the Contact in table usin Namefield
+        /// </summary>
+        public string DeleteContactUsingName(string name, AddressBookData Person)
+        {
+            string output = string.Empty;
+            //insert into table
+            InsertIntoDataTable(Person);
+            var result = (from contact in dataTable.AsEnumerable() where contact.Field<string>("FirstName").Equals(name) select contact).FirstOrDefault();
+            if (result != null)
+            {
+                result.Delete();
+                //display after its deleted
+                Console.WriteLine("After Deletion");
+                DisplayDataTable();
+                output = "Deleted Successfully";
+                return output;
+            }
+            return output;
+        }
+
 
         /// <summary>
         /// Method to display the data table
