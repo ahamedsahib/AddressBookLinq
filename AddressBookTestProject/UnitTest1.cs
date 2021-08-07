@@ -24,7 +24,7 @@ namespace AddressBookTestProject
         {
             try
             {
-                int actual, expected = 2;
+                int actual, expected = 3;
                 actual = manager.InsertIntoDataTable(person);
                 Assert.AreEqual(expected, actual);
 
@@ -64,6 +64,24 @@ namespace AddressBookTestProject
             {
                 string actual, expected = "Deleted Successfully";
                 actual = manager.DeleteContactUsingName("Ashfaq", person);
+                Assert.AreEqual(expected, actual);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+        }
+        /// <summary>
+        /// test method to delete Contact using name
+        /// </summary>
+        [TestMethod]
+        public void TestForRetreiveBasedOnStateOrCity()
+        {
+            try
+            {
+                int actual, expected = 2;
+                actual = manager.RetreiveContactBasedOnStateOrCity("Colombo", "Srilanka", person);
                 Assert.AreEqual(expected, actual);
             }
             catch (Exception ex)
