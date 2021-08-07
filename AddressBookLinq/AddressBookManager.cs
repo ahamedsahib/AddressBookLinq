@@ -214,6 +214,28 @@ namespace AddressBookLinq
 
         }
 
+        /// <summary>
+        /// method to count Contacts based on city
+        /// </summary>
+    
+        public int CountBasedOnCity(string cityName, AddressBookData Person)
+        {
+            int count = 0;
+            try
+            {
+                //insert into table
+                InsertIntoDataTable(Person);
+                var result = (from person in dataTable.AsEnumerable() where person.Field<string>("City").Equals(cityName) select person).ToList().Count;
+                count = result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return count;
+
+        }
+
 
 
         /// <summary>

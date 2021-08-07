@@ -90,6 +90,24 @@ namespace AddressBookTestProject
             }
 
         }
+        /// <summary>
+        /// test to count Contact based on city 
+        /// </summary>
+        [TestMethod]
+        public void TestForCountBasedOnCity()
+        {
+            try
+            {
+                int actual, expected = 2;
+                actual = manager.CountBasedOnCity("Colombo", person);
+                Assert.AreEqual(expected, actual);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+        }
 
     }
 }
