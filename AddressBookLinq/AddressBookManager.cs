@@ -102,6 +102,17 @@ namespace AddressBookLinq
             Person.phoneNumber = 8008765320;
             Person.emailId = "ashf@wertew.com";
             AddRowintoDataTable(Person);
+
+            //Assigning second value
+            Person.firstName = "Aqeel";
+            Person.lastName = "Ahamed";
+            Person.address = "Beruwala";
+            Person.city = "Colombo";
+            Person.state = "Srilanka";
+            Person.zipCode = 628204;
+            Person.phoneNumber = 8035465320;
+            Person.emailId = "aqeelf@wertew.com";
+            AddRowintoDataTable(Person);
             //display the table
             DisplayDataTable();
             return dataTable.Rows.Count;
@@ -171,6 +182,38 @@ namespace AddressBookLinq
             }
             return output;
         }
+
+        /// <summary>
+        /// Retreive records based on state or city 
+        /// </summary>
+        public int RetreiveContactBasedOnStateOrCity(string cityName,string stateName, AddressBookData Person)
+        {
+            int count = 0;
+            //insert into table
+            InsertIntoDataTable(Person);
+            try
+            {
+                var result = (from person in dataTable.AsEnumerable() where (person.Field<string>("State").Equals(stateName) || person.Field<string>("City").Equals(cityName)) select person);
+
+                    if (result != null)
+                    {
+                    Console.WriteLine($"Contacts of {stateName} and {cityName}");
+                    foreach (DataRow row in result)
+                    {
+
+                        Console.WriteLine($"{row["FirstName"]} | { row["LastName"]} | {row["Address"]} | {row["City"]} | {row["State"]} | {row["ZipCode"]} | {row["PhoneNumber"]} | {row["Email"]}\n");
+                    }
+                    count = result.Count();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return count;
+
+        }
+
 
 
         /// <summary>
