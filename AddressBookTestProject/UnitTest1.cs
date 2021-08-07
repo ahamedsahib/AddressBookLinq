@@ -108,6 +108,24 @@ namespace AddressBookTestProject
             }
 
         }
+        /// <summary>
+        /// test method Sort Contacts based on Cityname
+        /// </summary>
+        [TestMethod]
+        public void TestForSortBasedOnNameinGivenCity()
+        {
+            try
+            {
+                string actual, expected = "success";
+                actual = manager.SortContactBasedOnNameinGivenCity("Colombo", person);
+                Assert.AreEqual(expected, actual);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+        }
 
     }
 }
