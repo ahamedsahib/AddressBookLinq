@@ -236,6 +236,39 @@ namespace AddressBookLinq
 
         }
 
+        /// <summary>
+        /// Sort records based on name in given city
+        /// </summary>
+        /// <param name="cityName"></param>
+        /// <param name="Person"></param>
+        /// <returns></returns>
+        public string SortContactBasedOnNameinGivenCity(string cityName, AddressBookData Person)
+        {
+            string output = string.Empty;
+            try
+            {
+                //insert into table
+                InsertIntoDataTable(Person);
+                var result = (from person in dataTable.AsEnumerable() orderby person.Field<string>("FirstName") where person.Field<string>("City").Equals(cityName) select person);
+                if (result != null)
+                {
+                    Console.WriteLine("After retreiving");
+                    foreach (DataRow row in result)
+                    {
+
+                        Console.WriteLine($"{row["FirstName"]} | { row["LastName"]} | {row["Address"]} | {row["City"]} | {row["State"]} | {row["ZipCode"]} | {row["PhoneNumber"]} | {row["Email"]}\n");
+                    }
+
+                }
+                output = "success";
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+            return output;
+
+        }
 
 
         /// <summary>
