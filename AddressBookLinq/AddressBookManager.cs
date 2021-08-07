@@ -73,6 +73,19 @@ namespace AddressBookLinq
             dataColumn.ColumnName = "ZipCode";
             dataColumn.AutoIncrement = false;
             dataTable.Columns.Add(dataColumn);
+
+            //column for person id
+            dataColumn = new DataColumn();
+            dataColumn.DataType = typeof(Int64);
+            dataColumn.ColumnName = "PersonTypeId";
+            dataColumn.AutoIncrement = false;
+            dataTable.Columns.Add(dataColumn);
+            //column for person type
+            dataColumn = new DataColumn();
+            dataColumn.DataType = typeof(string);
+            dataColumn.ColumnName = "PersonType";
+            dataColumn.AutoIncrement = false;
+            dataTable.Columns.Add(dataColumn);
         }
         /// <summary>
         /// Method to insert the data into column
@@ -90,6 +103,8 @@ namespace AddressBookLinq
             Person.zipCode = 600001;
             Person.phoneNumber = 9765432108;
             Person.emailId = "asd@yaho.com";
+            Person.personTypeId = 1;
+            Person.personType = "Family";
             //Add into table
             AddRowintoDataTable(Person);
             //Assigning second value
@@ -101,6 +116,8 @@ namespace AddressBookLinq
             Person.zipCode = 628204;
             Person.phoneNumber = 8008765320;
             Person.emailId = "ashf@wertew.com";
+            Person.personTypeId = 2;
+            Person.personType = "Friend";
             AddRowintoDataTable(Person);
 
             //Assigning second value
@@ -112,6 +129,8 @@ namespace AddressBookLinq
             Person.zipCode = 628204;
             Person.phoneNumber = 8035465320;
             Person.emailId = "aqeelf@wertew.com";
+            Person.personTypeId = 3;
+            Person.personType = "Relative";
             AddRowintoDataTable(Person);
             //display the table
             DisplayDataTable();
@@ -258,6 +277,40 @@ namespace AddressBookLinq
 
                         Console.WriteLine($"{row["FirstName"]} | { row["LastName"]} | {row["Address"]} | {row["City"]} | {row["State"]} | {row["ZipCode"]} | {row["PhoneNumber"]} | {row["Email"]}\n");
                     }
+
+                }
+                output = "success";
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+            return output;
+
+        }
+
+        /// <summary>
+        /// Method to get count by type
+        /// </summary>
+      
+        public string GetCountByType(AddressBookData Person)
+        {
+
+            string output = string.Empty;
+            try
+            {
+                //insert into table
+                InsertIntoDataTable(Person);
+                var result = (from person in dataTable.AsEnumerable().GroupBy(row => new { personType = row["PersonType"] }) select person);
+                foreach (var value in result)
+                {
+
+                    Console.WriteLine(value.Key);
+                    foreach (var row in value)
+                    {
+                        Console.WriteLine($"{row["FirstName"]} | { row["LastName"]} | {row["Address"]} | {row["City"]} | {row["State"]} | {row["ZipCode"]} | {row["PhoneNumber"]} | {row["Email"]} | {row["PersonTypeId"]}| {row["PersonType"]}\n");
+                    }
+                    Console.WriteLine("----------------------");
 
                 }
                 output = "success";
